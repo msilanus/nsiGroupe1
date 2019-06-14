@@ -1,0 +1,59 @@
+body {
+    background: darkslategrey;
+}
+
+h1 {
+    font-family: 'Indie Flower', cursive;
+    font-weight: bold;
+    font-size: 5em;
+    text-align: center;
+    color: lightgrey;
+    background: black;
+    margin: 0 50px;
+    padding: 20px;
+}
+
+h2 {
+    font-family: 'Indie Flower', cursive;
+    font-size: 3em;
+    text-align: left;
+    color: lightgrey;
+}
+
+ul {
+    font-size: 1.2em;
+    font-family: 'Oxygen', sans-serif;
+}
+
+section {
+    padding: 10px;
+
+    margin-left: 50px;
+    margin-right: 50px;
+
+    background: dimgray;
+    color: beige;
+    font-family: 'Encode Sans Semi Expanded', sans-serif;
+    font-size: 1.1em;
+}
+
+a {
+    font-size: 1.2em;
+    font-family: 'Oxygen', sans-serif;
+    color: beige;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+footer {
+    font-family: 'Mukta', sans-serif;
+    background: black;
+    color: white;
+    font-weight: bold;
+}
+
+img {
+    float: right;
+}

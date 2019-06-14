@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        h1{
+            text-align: center;
+        }
+        #Table, #canvas{
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto
+        }
+    </style>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="data_annual.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script>
+
+        function get_liste_data() {
+            var line;
+            var data = [];
+            raw_data.forEach(function (item) {
+                line = item.toString().split(',');
+                data.push(line[2]);
+                console.log(line[2]);
+            });
+            return data;
+        }
+
+        function get_liste_label() {
+            var line;
+            var data = [];
+            raw_data.forEach(function (item) {
+                line = item.toString().split(',')
+                data.push(line[1]);
+                console.log(line[1]);
+            });
+            return data;
+        }
+
+        function get_tableau_jq(tableId, year, data) {
+            var table = $("<table>");
+            table.attr('id', 'ma_table');
+            table.attr('class', 'display');
+            head = $("<thead>").html("<tr><th>année</th><th>moyenne</th></tr>");
+            table.append(head);
+
+            body = $("<tbody>");
+            table.append(body);
+
+            for (var i = 1; i < year.length; i += 1) {
+                line = $("<tr>");
+                line.append($("<td>").text(year[i]));
+                line.append($("<td>").text(data[i]));
+
+                body.append(line);
+            }
+            $(tableId).html(table);
+
+
+            $("#ma_table").DataTable();
+        }
+
+        function display_chart(year, data) {
+            new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: year,
+                    datasets: [{
+                        data: data,
+                        label: "Average global mean temperature anomalies in degrees Celsius relative to a base period",
+                        borderColor: "#3e95cd",
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks:{
+                                autoSkip: true,
+                                autoSkipPadding: 10,
+
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Global Temperature Time Series'
+                    }
+                }
+            });
+
+        }
+
+        $(function () {
+            display_chart(get_liste_label(), get_liste_data());
+            get_tableau_jq("#Table", get_liste_label(), get_liste_data());
+        });
+    </script>
+
+</head>
+<body>
+<h1>Données <a href="https://datahub.io/core/global-temp">réchauffement climatique</a></h1>
+
+
+<div id="canvas">
+    <canvas height="450px" id="line-chart" width="800px"></canvas>
+</div>
+
+<div id="Table"></div>
+
+</body>
+</html>

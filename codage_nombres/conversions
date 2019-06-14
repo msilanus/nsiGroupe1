@@ -1,0 +1,14 @@
+exemple = "Décimal : {0:d}; Binaire : {0:{fill}16b}; Hexadécimal : {0:{fill}4x}".format(42,fill=0)
+print(exemple)
+
+val = 55
+print(f'{val} en binaire c\'est : {val:b}')
+
+val = 123
+print(val,'en hexa : ',hex(val))
+
+val = 0XFEDCBA9876543210
+print(f'{val:x} en binaire : {val:b}')
+
+val = '11110000101011110111'
+print(val,'en hexa : ',hex(int(val,2)))

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chargement de la bibliothèque jquery</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+
+            background: skyblue;
+            color: #FFFFFF;
+            font-size: 2em;
+            text-align: center;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        function getColor_h1() {
+            return $("h1").css("color")
+        }
+
+        function setClolor_h1(color) {
+            $("h1").css("color", color)
+        }
+        function getWidth(objetc) {
+            return $(objetc).css("width");
+        }
+        function setWidth(object,width) {
+            $(object).css("width",width);
+        }
+    </script>
+
+</head>
+<body>
+
+         <h1>Enfin du web !</h1>
+
+
+    <p>Et on aime ça.</p>
+    <script>
+
+
+        $("h1").click(function () {
+            setClolor_h1("red");
+            console.log(getWidth(this));
+            setWidth(this,"50%");
+        });
+    </script>
+</body>
+</html>

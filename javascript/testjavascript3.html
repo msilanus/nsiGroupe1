@@ -1,0 +1,48 @@
+<html lang="fr">
+<head>
+    <title>Magie javascript</title>
+    <meta charset="utf-8">
+
+</head>
+<body>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+
+        background: skyblue;
+        color: #FFFFFF;
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .milieu {
+        margin: 10px auto;
+        height: 50px;
+        width: 20px;
+    }
+
+    .color {
+        background-color: olive;
+    }
+</style>
+
+<h1> Enfin du web !</h1>
+<p> et on aime ça</p>
+<div class="milieu color" id="mon_div"></div>
+
+<script>
+    blue = false;
+    document.getElementById("mon_div").onmouseover = function () {
+        if (blue) {
+            blue = false;
+            document.getElementById("mon_div").style.backgroundColor = "olive"
+        } else {
+            blue = true;
+            document.getElementById("mon_div").style.backgroundColor = "blue"
+        }
+    }
+
+</script>
+</body>
+</html>

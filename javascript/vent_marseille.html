@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="data_wind.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script>
+        function get_raw_data() {
+            $("p").html(raw_data);
+        }
+
+        function get_liste(une_liste, div) {
+            liste = $("<ul>");
+            une_liste.forEach(function (item) {
+                ligne = $("<li>");
+                ligne.text(item);
+                liste.append(ligne);
+                //console.log(liste);
+            });
+            $(div).html(liste);
+        }
+
+        function get_liste_wind() {
+            var line;
+            var data = [];
+            raw_data.forEach(function (item) {
+                line = item.toString().split(',');
+                data.push(line[6]);
+                console.log(line[6]);
+            });
+            return data;
+        }
+
+        function get_liste_date() {
+            var line;
+            var data = [];
+            raw_data.forEach(function (item) {
+                line = item.toString().split(',');
+                la_date = line[2].toString()+"/"+line[1].toString()+"/"+line[0].toString()+" "+line[3].toString()+":"+line[4].toString();
+                data.push(la_date);
+                console.log(la_date);
+            });
+            return data;
+        }
+
+        function get_tableau_js(tableId, year, data) {
+            var refTable = document.getElementById(tableId);
+            for (var i = 0; i < year.length; i++) {
+                var new_line = refTable.insertRow(i);
+
+                var new_cell0 = new_line.insertCell(0);
+                var new_content0 = document.createTextNode(year[i]);
+                new_cell0.appendChild(new_content0);
+
+                var new_cell1 = new_line.insertCell(1);
+                var new_content1 = document.createTextNode(data[i]);
+                new_cell1.appendChild(new_content1);
+
+            }
+        }
+
+        function get_tableau_jq(tableId, year, data) {
+            var table = $("<table>");
+            table.attr('id', 'ma_table');
+            table.attr('class', 'display');
+
+            head = $("<thead>").html("<tr><th>Date</th><th>Vitesse du vent (km/h)</th></tr>");
+            table.append(head);
+
+            body = $("<tbody>");
+            table.append(body);
+
+            for (var i = 1; i < year.length; i += 1) {
+                line = $("<tr>");
+                line.append($("<td>").text(year[i]));
+                line.append($("<td>").text(data[i]));
+
+                body.append(line);
+            }
+            $(tableId).html(table);
+
+
+            $("#ma_table").DataTable();
+        }
+
+        function display_chart(year, data) {
+            new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: year,
+                    datasets: [{
+                        data: data,
+                        label: "Vitesse du vent (km/h)",
+                        borderColor: "#3e95cd",
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks:{
+                                autoSkip: true,
+                                autoSkipPadding: 10,
+
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Mesures prises à 80m au dessus du sol'
+                    }
+                }
+            });
+
+        }
+
+        $(function () {
+            //get_raw_data();
+            //get_liste(get_liste_date(), "#year");
+            //get_liste(get_liste_wind(), "#data");
+            //get_tableau_js("Table",get_liste_date(),get_liste_wind());
+            display_chart(get_liste_date(), get_liste_wind());
+            get_tableau_jq("#Table", get_liste_date(), get_liste_wind());
+        });
+    </script>
+
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <!--<style>
+        table {
+            border-collapse: collapse;
+            width: 20%;
+        }
+
+        td{
+            width: 10%;
+            text-align: center;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>-->
+</head>
+<body>
+<h1 style="text-align: center">Données <a href="https://www.meteoblue.com/fr/meteo/archive/export/marseille_france_2995469">climatiques de Marseille</a></h1>
+
+<p></p>
+
+<!--<div id="year"></div>
+<div id="data"></div>-->
+
+<div id="canvas" style="width: 50%; margin-left: auto; margin-right: auto">
+    <canvas height="450px" id="line-chart" width="800px"></canvas>
+</div>
+
+<div id="Table" style="width: 50%; margin-left: auto; margin-right: auto"></div>
+<!--<table id="Table" border="1">
+    <tr>
+        <td>Year</td>
+        <td>Data</td>
+    </tr>
+</table>-->
+</body>
+</html>

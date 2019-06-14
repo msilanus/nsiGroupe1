@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Import de raw_data</title>
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="data_annual.js"></script>
+    <script>
+        // ici mes fonctions
+        function get_raw_data() {
+            $("p").html(raw_data);
+        }
+
+        // ici le code exécuté à l'ouvertur de la page
+        $(function(){
+            get_raw_data();
+        })
+    </script>
+</head>
+<body>
+    <p></p>
+</body>
+</html>
